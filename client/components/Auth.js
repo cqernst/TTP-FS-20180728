@@ -14,7 +14,7 @@ const AuthForm = props => {
         {name === 'signup' ? (
           <div>
             <label htmlFor="username">
-              <small>Working?</small>
+              <small>Name</small>
             </label>
             <input name="username" type="text" />
           </div>
