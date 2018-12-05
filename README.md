@@ -32,8 +32,9 @@ To start up the project, clone this repo to your machine and
 - [ ] testing
 - [ ] protection for backend routes
 - [ ] accessibility/visibility to screen readers
-- [ ] Do we anticipate users wanting to access this on mobile? 
+- [ ] do we anticipate users wanting to access this on mobile? 
 - [ ] mobile styling
 - [ ] mobile security 
 - [ ] what do we do about latency (for example, on the subway?)
 - [ ] will this work over slow connections/ what will a user see without javascript enabled?
+- [ ] do we know where the majority userbase will be located? (e.g., a country where we need to provide Opera coverage?)
