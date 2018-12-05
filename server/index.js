@@ -12,6 +12,23 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+passport.serializeUser((user, done) => {
+  try {
+    done(null, user.id);
+  } catch (err) {
+    done(err);
+  }
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.models.user.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'Fedya was here',
@@ -23,21 +40,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  try {
-    done(null, user.id);
-  } catch (err) {
-    done(err);
-  }
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then(user => done(null, user))
-    .catch(done);
-});
-
 app.use('/api', require('./apiRoutes'));
+
+app.use('/favicon.ico', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', 'public/favicon.ico'));
+});
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

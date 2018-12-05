@@ -33,7 +33,6 @@ export const me = () => async dispatch => {
 /*Username will be undefined if the login form is used*/
 
 export const auth = (email, password, method, name) => async dispatch => {
-  console.log('got inside auth');
   let res;
   try {
     res = await axios.post(`api/users/${method}`, {

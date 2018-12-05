@@ -14,7 +14,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
+    console.log('isLoggedIn is: ', isLoggedIn);
     return (
       <Switch>
         <Route path="/login" component={Login} />
