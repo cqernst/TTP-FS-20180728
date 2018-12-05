@@ -5,11 +5,14 @@ import store from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '../public/style.css';
 import history from './history';
+import Routes from './react-routes';
 
 ReactDOM.render(
 	<Provider store={store}>
 		<Router history={history}>
-			<App />
+			<div>
+				<Routes />
+			</div>
 		</Router>
 	</Provider>,
 	document.getElementById('app')
