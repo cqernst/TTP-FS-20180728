@@ -1,0 +1,69 @@
+body {
+	font-family: arial, sans-serif;
+}
+
+.auth-form {
+	padding: 1rem;
+	border: 0.15rem solid black;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 90%;
+	max-width: 18rem;
+}
+
+.auth-form input {
+	margin: 0.5rem 0;
+	width: 98%;
+}
+
+.cta-container {
+	margin-bottom: 1rem;
+}
+
+.error-container {
+	border: 0.15rem solid red;
+	padding: 0.15rem;
+}
+
+.navbar {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.nav-content {
+	display: flex;
+	justify-content: space-between;
+}
+
+.content {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.list-container {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	border-right: 2px solid black;
+}
+
+.list {
+	margin: 0 2rem;
+}
+
+.list-header {
+	text-transform: uppercase;
+}
+
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5rem 0;
+	border-bottom: 2px solid black;
+}
+
+.item-transaction {
+	text-transform: uppercase;
+}
