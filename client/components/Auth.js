@@ -61,7 +61,6 @@ const mapSignup = state => {
 };
 
 const mapDispatch = dispatch => {
-  console.log('got inside mapDispatch');
   return {
     handleSubmit(evt) {
       evt.preventDefault();
@@ -71,7 +70,6 @@ const mapDispatch = dispatch => {
         : undefined;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      console.log('got inside handleSubmit. This is auth: ', auth);
       dispatch(auth(email, password, formName, username));
     },
   };
