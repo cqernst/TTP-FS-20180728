@@ -45,8 +45,11 @@ router.post('/', async (req, res, next) => {
 });
 
 router.get('/:userId', async (req, res, next) => {
+  console.log('made it into backend route');
   try {
-    const transactions = await Transaction.findAll({ where: { userId } });
+    const transactions = await Transaction.findAll({
+      where: { userId: req.params.userId },
+    });
     res.json(transactions);
   } catch (err) {
     next(err);

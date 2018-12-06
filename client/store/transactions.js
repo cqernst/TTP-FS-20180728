@@ -14,7 +14,10 @@ const defaultTransactions = [];
 /**
  * ACTION CREATORS
  */
-const getTransactions = user => ({ type: GET_TRANSACTIONS, transactions });
+const getTransactions = transactions => ({
+  type: GET_TRANSACTIONS,
+  transactions,
+});
 
 /**
  * THUNK CREATORS
@@ -22,6 +25,8 @@ const getTransactions = user => ({ type: GET_TRANSACTIONS, transactions });
 export const fetchTransactions = userId => async dispatch => {
   try {
     const res = await axios.get(`api/transactions/${userId}`);
+    console.log('res', res);
+    console.log('res.data', res.data);
     dispatch(getTransactions(res.data || defaultTransactions));
   } catch (err) {
     console.error(err);
