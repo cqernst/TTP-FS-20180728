@@ -18,7 +18,7 @@ To start up the project, clone this repo to your machine and
 - [x] user authenticates via  email and password in order to access account
 - [ ] user can buy  shares of stock at its current price by specifying its sticker symbol and number of shares
 - [x] a user can  only buy whole number quantities  of  shares
-- [ ] a user can only buy shares if they have enough cash in their account for a given purchase
+- [x] a user can only buy shares if they have enough cash in their account for a given purchase
 - [ ] a user can only buy shares if the ticker symbol is valid
 - [ ] a user can view a list of their transactions
 - [ ] a user can see a list of their stocks along with their current values
