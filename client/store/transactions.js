@@ -5,6 +5,7 @@ import history from '../history';
  * ACTION TYPES
  */
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
 
 /**
  * INITIAL STATE
@@ -25,9 +26,17 @@ const getTransactions = transactions => ({
 export const fetchTransactions = userId => async dispatch => {
   try {
     const res = await axios.get(`api/transactions/${userId}`);
-    console.log('res', res);
-    console.log('res.data', res.data);
     dispatch(getTransactions(res.data || defaultTransactions));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const postTransaction = transaction => async dispatch => {
+  try {
+    console.log('inside postTransaction');
+    const res = await axios.post(`api/transactions/`, transaction);
+    fetchTransactions(res.data.userId);
   } catch (err) {
     console.error(err);
   }

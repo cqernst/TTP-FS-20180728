@@ -6,6 +6,8 @@ const axios = require('axios');
 module.exports = router;
 
 router.post('/', async (req, res, next) => {
+  console.log('got in');
+  console.log('req.body', req.body);
   try {
     //retrieve the stock's current price from IEX
     const priceResponse = await axios.get(
@@ -45,7 +47,6 @@ router.post('/', async (req, res, next) => {
 });
 
 router.get('/:userId', async (req, res, next) => {
-  console.log('made it into backend route');
   try {
     const transactions = await Transaction.findAll({
       where: { userId: req.params.userId },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../store';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -32,7 +33,15 @@ const AuthForm = props => {
           <div className="error-container"> {error.response.data} </div>
         )}
       </form>
-      {/*add a link here. name === 'signup' ? login link : "New to this app? <signup link>"}*/}
+      {name === 'signup' ? (
+        <Link to={`/login`}>
+          <button className="button">Login</button>
+        </Link>
+      ) : (
+        <Link to={`/signup`}>
+          <button className="button">New User?</button>
+        </Link>
+      )}
     </div>
   );
 };

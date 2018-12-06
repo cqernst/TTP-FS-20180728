@@ -1,13 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateHomePage } from '../store';
 
-export const Navbar = props => {
+const Navbar = props => {
+  const { setView } = props;
   return (
     <div className="navbar">
       <div className="nav-content">
-        <a>Portfolio</a>
+        <button onClick={() => setView('portfolio')}>Portfolio</button>
         <span>|</span>
-        <a>Transactions</a>
+        <button onClick={() => setView('transactions')}>Transactions</button>
       </div>
     </div>
   );
 };
+
+const mapDispatch = dispatch => {
+  return {
+    setView(view) {
+      dispatch(updateHomePage(view));
+    },
+  };
+};
+
+export default connect(
+  null,
+  mapDispatch
+)(Navbar);
