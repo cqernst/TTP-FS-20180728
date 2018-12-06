@@ -74,3 +74,12 @@ body {
 	padding: 10px 12px;
 	box-shadow: 2px 2px;
 }
+
+.button:hover {
+	box-shadow: 4px 4px;
+}
+
+.button:active {
+	color: white;
+	background-color: black;
+}
