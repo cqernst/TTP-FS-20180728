@@ -24,12 +24,15 @@ const AuthForm = props => {
           <input name="password" type="password" placeholder="password" />
         </div>
         <div className="cta-container">
-          <button type="submit">{displayName}</button>
+          <button className="button" type="submit">
+            {displayName}
+          </button>
         </div>
         {error && error.response && (
           <div className="error-container"> {error.response.data} </div>
         )}
       </form>
+      {/*add a link here. name === 'signup' ? login link : "New to this app? <signup link>"}*/}
     </div>
   );
 };
