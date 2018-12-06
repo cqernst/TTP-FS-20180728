@@ -1,44 +1,25 @@
 const router = require('express').Router();
-const Stock = require('../db/models/Stock');
 const Transaction = require('../db/models/Transaction');
+
 module.exports = router;
 
-router.post('/transaction', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const transaction = await Transaction.create(req.body);
-    if (!user) {
-      console.log('No such user found:', req.body.email);
-      res.status(401).send('Wrong username and/or password');
-    } else if (!user.correctPassword(req.body.password)) {
-      console.log('Incorrect password for user:', req.body.email);
-      res.status(401).send('Wrong username and/or password');
-    } else {
-      req.login(user, err => (err ? next(err) : res.json(user)));
-    }
+    res.json(transaction);
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/signup', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
-    const user = await User.create(req.body);
-    req.login(user, err => (err ? next(err) : res.json(user)));
+    const transactions = await Transaction.findAll({ where: { userId } });
+    res.json(transactions);
   } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(401).send('User already exists');
-    } else {
-      next(err);
-    }
+    next(err);
   }
 });
 
-router.post('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
-});
 
-router.get('/me', (req, res) => {
-  res.json(req.user);
-});
+
