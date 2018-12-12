@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { createPortfolio } from './';
+import { createPortfolio, me } from './';
 
 /**
  * ACTION TYPES
@@ -37,9 +37,9 @@ export const fetchTransactions = userId => async dispatch => {
 
 export const postTransaction = transaction => async dispatch => {
   try {
-    console.log('inside postTransaction');
     const res = await axios.post(`api/transactions/`, transaction);
     dispatch(fetchTransactions(res.data.userId));
+    dispatch(me());
   } catch (err) {
     console.error(err);
   }

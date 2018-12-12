@@ -32,10 +32,10 @@ export const List = props => {
 								: item.quantity}
 						</span>
 						{props.type === 'transactions' ? (
-							<span className="item-price">{item.price}</span>
+							<span className="item-price">${item.price}</span>
 						) : (
 							<span className={`${status} item-price`}>
-								{item.currentPrice}
+								${item.currentPrice}
 							</span>
 						)}
 					</div>
