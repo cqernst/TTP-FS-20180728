@@ -64,6 +64,18 @@ body {
 	border-bottom: 2px solid black;
 }
 
+.down {
+	color: red;
+}
+
+.up {
+	color: green;
+}
+
+.no-change {
+	color: grey;
+}
+
 .item-transaction {
 	text-transform: uppercase;
 }

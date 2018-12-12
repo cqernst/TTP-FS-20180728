@@ -10,6 +10,14 @@ export const List = props => {
 		<div className="list">
 			<h4 className="list-header">{props.type}</h4>
 			{props.listItems.map(item => {
+				let status;
+				if (item.currentPrice > item.openPrice) {
+					status = 'up';
+				} else if (item.currentPrice < item.openPrice) {
+					status = 'down';
+				} else {
+					status = 'no-change';
+				}
 				return (
 					<div className="list-item">
 						{props.type === 'transactions' ? (
@@ -26,7 +34,9 @@ export const List = props => {
 						{props.type === 'transactions' ? (
 							<span className="item-price">{item.price}</span>
 						) : (
-							<span className="item-price">{item.openPrice}</span>
+							<span className={`${status} item-price`}>
+								{item.currentPrice}
+							</span>
 						)}
 					</div>
 				);

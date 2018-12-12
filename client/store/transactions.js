@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { createPortfolio } from './';
 
 /**
  * ACTION TYPES
@@ -26,7 +27,9 @@ const getTransactions = transactions => ({
 export const fetchTransactions = userId => async dispatch => {
   try {
     const res = await axios.get(`api/transactions/${userId}`);
-    dispatch(getTransactions(res.data || defaultTransactions));
+    let transactions = res.data;
+    dispatch(getTransactions(transactions || defaultTransactions));
+    dispatch(createPortfolio(transactions || defaultTransactions));
   } catch (err) {
     console.error(err);
   }
