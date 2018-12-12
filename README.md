@@ -16,7 +16,7 @@ To start up the project, clone this repo to your machine and
 - [x] a user can only register once with any given email
 - [x] logged in user automatatically transferred to home dashboard
 - [x] user authenticates via  email and password in order to access account
-- [ ] user can buy  shares of stock at its current price by specifying its sticker symbol and number of shares
+- [x] user can buy  shares of stock at its current price by specifying its sticker symbol and number of shares
 - [x] a user can  only buy whole number quantities  of  shares
 - [x] a user can only buy shares if they have enough cash in their account for a given purchase
 - [ ] a user can only buy shares if the ticker symbol is valid
