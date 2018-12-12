@@ -10,31 +10,65 @@ import { fetchTransactions } from '../store';
 
 // This is mocking the incoming data until we get it coming in live
 
-const portfolioData = {
-	type: 'portfolio',
-	listitems: [
-		{ symbol: 'AALP', count: 12, price: 12.72 },
-		{ symbol: 'AIG', count: 10, price: 1.05 },
-		{ symbol: 'NFLX', count: 5, price: 14.8 },
-	],
-};
+// const portfolioData = {
+// 	type: 'portfolio',
+// 	listitems: [
+// 		{ symbol: 'AALP', count: 12, price: 12.72 },
+// 		{ symbol: 'AIG', count: 10, price: 1.05 },
+// 		{ symbol: 'NFLX', count: 5, price: 14.8 },
+// 	],
+// };
 
-const transactionsData = {
-	type: 'transactions',
-	listitems: [
-		{ symbol: 'AALP', count: 12, price: 12.72, transaction: 'buy' },
-		{ symbol: 'AIG', count: 10, price: 1.05, transaction: 'sell' },
-		{ symbol: 'NFLX', count: 5, price: 14.8, transaction: 'buy' },
-	],
-};
+// const transactionsData = {
+// 	type: 'transactions',
+// 	listitems: [
+// 		{ symbol: 'AALP', count: 12, price: 12.72, transaction: 'buy' },
+// 		{ symbol: 'AIG', count: 10, price: 1.05, transaction: 'sell' },
+// 		{ symbol: 'NFLX', count: 5, price: 14.8, transaction: 'buy' },
+// 	],
+// };
 
 export class UserHome extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { portfolioData: [] };
+		this.composePortfolioData = this.composePortfolioData.bind(this);
+	}
+
 	componentDidMount() {
 		this.props.getAllTransactions(this.props.userId);
+		//subscribe to each stock's price using IEX sockets
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.transactions !== this.props.transactions) {
+			this.composePortfolioData(this.props.transactions);
+		}
+	}
+
+	/*componentWillUnmount() {
+	//unsubscribe from all sockets
+	}*/
+
+	composePortfolioData(transactions) {
+		let symbols = new Set();
+		let portfolio = [];
+		/*because transactions are chronologically ordered, the first transaction we find in the array
+		for a given stock symbol will have the most current total count for that stock symbol*/
+		for (let i = 0; i < transactions.length; i++) {
+			let transaction = transactions[i];
+
+			if (!symbols.has(transaction.stock_symbol)) {
+				symbols.add(transaction.stock_symbol);
+				portfolio.push(transaction);
+			}
+		}
+
+		this.setState({ portfolioData: portfolio });
 	}
 
 	render() {
-		const { name, balance, view } = this.props;
+		const { name, balance, view, transactions } = this.props;
 		return (
 			<div>
 				<Navbar />
@@ -42,7 +76,11 @@ export class UserHome extends Component {
 					<div className="list-container">
 						<List
 							type={view}
-							listitems={transactionsData.listitems}
+							listItems={
+								view === 'portfolio'
+									? this.state.portfolioData
+									: transactions
+							}
 						/>
 					</div>
 					{view === 'portfolio' ? (

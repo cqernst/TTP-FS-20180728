@@ -19,7 +19,7 @@ export const List = props => {
 	return (
 		<div className="list">
 			<h4 className="list-header">{props.type}</h4>
-			{props.listitems.map(item => {
+			{props.listItems.map(item => {
 				return (
 					<div className="list-item">
 						{item.transaction ? (
@@ -27,9 +27,17 @@ export const List = props => {
 								{item.transaction}
 							</span>
 						) : null}
-						<span className="item-symbol">({item.symbol}) - </span>
-						<span className="item-count">{item.count}</span>
-						<span className="item-price">{item.price}</span>
+						<span className="item-symbol">
+							({item.stock_symbol}) -{' '}
+						</span>
+						<span className="item-count">
+							{props.type === 'portfolio'
+								? item.total
+								: item.quantity}
+						</span>
+						{props.view === 'transactions' ? (
+							<span className="item-price">{item.price}</span>
+						) : null /* insert logic to pull in socket-subscribed price*/}
 					</div>
 				);
 			})}
