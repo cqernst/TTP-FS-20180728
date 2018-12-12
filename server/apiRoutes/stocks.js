@@ -6,8 +6,6 @@ const axios = require('axios');
 module.exports = router;
 
 router.post('/', async (req, res, next) => {
-  console.log('got in');
-  console.log('req.body', req.body);
   try {
     //retrieve the stock's current price from IEX
     const priceResponse = await axios.get(
@@ -18,7 +16,7 @@ router.post('/', async (req, res, next) => {
 
     /*get the user's balance to make sure they have enough to
     complete the transaction*/
-    const user = await User.findById(req.body.userId);
+    const user = await User.findByPk(req.body.userId);
     //the balance comes back as a string, so coerce to a number
     let balance = Number(user.balance);
 
@@ -50,6 +48,7 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const transactions = await Transaction.findAll({
       where: { userId: req.params.userId },
+      order: [['createdAt', 'DESC']],
     });
     res.json(transactions);
   } catch (err) {

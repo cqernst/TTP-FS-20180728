@@ -24,6 +24,7 @@ const getTransactions = transactions => ({
  * THUNK CREATORS
  */
 export const fetchTransactions = userId => async dispatch => {
+  console.log('got inside fetch transactions');
   try {
     const res = await axios.get(`api/transactions/${userId}`);
     dispatch(getTransactions(res.data || defaultTransactions));
@@ -36,7 +37,7 @@ export const postTransaction = transaction => async dispatch => {
   try {
     console.log('inside postTransaction');
     const res = await axios.post(`api/transactions/`, transaction);
-    fetchTransactions(res.data.userId);
+    dispatch(fetchTransactions(res.data.userId));
   } catch (err) {
     console.error(err);
   }

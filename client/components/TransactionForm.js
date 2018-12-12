@@ -45,7 +45,6 @@ const mapDispatch = (dispatch, props) => {
 		handleSubmit(evt, userId) {
 			evt.preventDefault();
 			const stock_symbol = evt.target.ticker.value;
-			console.log('stock_symbol', stock_symbol);
 			const quantity = evt.target.quantity.value;
 			dispatch(postTransaction({ stock_symbol, quantity, userId }));
 		},
