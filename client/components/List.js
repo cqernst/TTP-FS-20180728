@@ -23,9 +23,11 @@ export const List = props => {
 								? item.total
 								: item.quantity}
 						</span>
-						{props.view === 'transactions' ? (
+						{props.type === 'transactions' ? (
 							<span className="item-price">{item.price}</span>
-						) : null /* insert logic to pull in socket-subscribed price*/}
+						) : (
+							<span className="item-price">{item.openPrice}</span>
+						)}
 					</div>
 				);
 			})}

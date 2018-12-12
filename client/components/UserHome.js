@@ -3,30 +3,11 @@ import { connect } from 'react-redux';
 import { Navbar, TransactionForm } from '../components';
 import { List } from './List.js';
 import { fetchTransactions } from '../store';
+import axios from 'axios';
 
 /**
  * COMPONENT
  */
-
-// This is mocking the incoming data until we get it coming in live
-
-// const portfolioData = {
-// 	type: 'portfolio',
-// 	listitems: [
-// 		{ symbol: 'AALP', count: 12, price: 12.72 },
-// 		{ symbol: 'AIG', count: 10, price: 1.05 },
-// 		{ symbol: 'NFLX', count: 5, price: 14.8 },
-// 	],
-// };
-
-// const transactionsData = {
-// 	type: 'transactions',
-// 	listitems: [
-// 		{ symbol: 'AALP', count: 12, price: 12.72, transaction: 'buy' },
-// 		{ symbol: 'AIG', count: 10, price: 1.05, transaction: 'sell' },
-// 		{ symbol: 'NFLX', count: 5, price: 14.8, transaction: 'buy' },
-// 	],
-// };
 
 export class UserHome extends Component {
 	constructor(props) {
@@ -35,22 +16,52 @@ export class UserHome extends Component {
 		this.composePortfolioData = this.composePortfolioData.bind(this);
 	}
 
-	componentDidMount() {
-		this.props.getAllTransactions(this.props.userId);
+	async componentDidMount() {
+		await this.props.getAllTransactions(this.props.userId);
+
 		//subscribe to each stock's price using IEX sockets
+		// const socket = require('socket.io-client')(
+		// 	'https://ws-api.iextrading.com/1.0/deep'
+		// );
+
+		// socket.on('message', message => console.log(message));
+
+		// socket.on('connect', () => {
+		// 	socket.emit(
+		// 		'subscribe',
+		// 		JSON.stringify({
+		// 			symbols: ['aig', 'snap'],
+		// 			channels: ['officialprice'],
+		// 		})
+		// 	);
+		// });
+		// Listen to the channel's messages
+		// socket.on('message', message => console.log(message));
+
+		// // Connect to the channel
+		// socket.on('connect', () => {
+		// 	// Subscribe to topics (i.e. appl,fb,aig+)
+		// 	socket.emit('subscribe', 'snap,fb,aig+');
+
+		// 	// Unsubscribe from topics (i.e. aig+)
+		// 	socket.emit('unsubscribe', 'aig+');
+		// });
 	}
 
 	componentDidUpdate(prevProps) {
+		//if we have new transactions, update portfolio data
 		if (prevProps.transactions !== this.props.transactions) {
-			this.composePortfolioData(this.props.transactions);
+			let transactions = this.props.transactions.slice();
+			this.composePortfolioData(transactions);
 		}
 	}
 
-	/*componentWillUnmount() {
-	//unsubscribe from all sockets
-	}*/
+	componentWillUnmount() {
+		// Disconnect from the channel
+		socket.on('disconnect', () => console.log('Disconnected.'));
+	}
 
-	composePortfolioData(transactions) {
+	async composePortfolioData(transactions) {
 		let symbols = new Set();
 		let portfolio = [];
 		/*because transactions are chronologically ordered, the first transaction we find in the array
@@ -60,6 +71,14 @@ export class UserHome extends Component {
 
 			if (!symbols.has(transaction.stock_symbol)) {
 				symbols.add(transaction.stock_symbol);
+				//query the stock's opening price and place it as a value on the transaction
+				const quote = await axios.get(
+					`https://api.iextrading.com/1.0/stock/${
+						transaction.stock_symbol
+					}/quote`
+				);
+				console.log('openData', quote);
+				transaction['openPrice'] = quote.data.open;
 				portfolio.push(transaction);
 			}
 		}

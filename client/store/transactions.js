@@ -24,7 +24,6 @@ const getTransactions = transactions => ({
  * THUNK CREATORS
  */
 export const fetchTransactions = userId => async dispatch => {
-  console.log('got inside fetch transactions');
   try {
     const res = await axios.get(`api/transactions/${userId}`);
     dispatch(getTransactions(res.data || defaultTransactions));
