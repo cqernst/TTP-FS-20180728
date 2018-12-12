@@ -20,13 +20,13 @@ To start up the project, clone this repo to your machine and
 - [x] a user can  only buy whole number quantities  of  shares
 - [x] a user can only buy shares if they have enough cash in their account for a given purchase
 - [ ] a user can only buy shares if the ticker symbol is valid
-- [ ] a user can view a list of their transactions
-- [ ] a user can see a list of their stocks along with their current values
-- [ ] user's portfolio values should be based on the latest price and quantity owned for a given stock
-- [ ] a user should see the font color of stock symbols and current prices change dynamically 
-- [ ] display red when the current price is less than the day's open price
-- [ ] display green when the current price is greatr than the day's open price
-- [ ] display grey when the current price is the same as the day's open price
+- [x] a user can view a list of their transactions
+- [x] a user can see a list of their stocks along with their current values
+- [x] user's portfolio values should be based on the latest price and quantity owned for a given stock
+- [x] a user should see the font color of stock symbols and current prices change dynamically 
+- [x] display red when the current price is less than the day's open price
+- [x] display green when the current price is greatr than the day's open price
+- [x] display grey when the current price is the same as the day's open price
 
 ### Concerns/research goals:
 - [ ] testing
